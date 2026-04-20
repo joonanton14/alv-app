@@ -1,0 +1,66 @@
+[
+  {
+    "id": "b7311e3f-c5b8-4f46-9b08-ac86ff16ef9f",
+    "year": 2026,
+    "month": 4,
+    "serviceSalesGross": 4000.89,
+    "productSalesGross": 250,
+    "rentGross": 1304.65,
+    "productCommissionGross": 58.35,
+    "vatRate": 25.5,
+    "rentVat": 0,
+    "accountantVat": 39,
+    "otherDeductibleVat": 0,
+    "payoutsReceived": 0,
+    "notes": " bmvkkhh",
+    "attachments": "",
+    "files": [
+      {
+        "id": "8d190093-16a5-4ed3-9f93-f2241bb819df",
+        "fileName": "8d190093-16a5-4ed3-9f93-f2241bb819df.pdf",
+        "originalName": "Arvonlisaveroilmoitus_10.03.2026.pdf",
+        "uploadedAt": "2026-04-20T06:16:11.894Z"
+      },
+      {
+        "id": "e1ffe3cc-4f47-4a50-8986-f75b6f255d6b",
+        "fileName": "e1ffe3cc-4f47-4a50-8986-f75b6f255d6b.pdf",
+        "originalName": "ae646ed4-b8d6-4a4b-ba16-206b49b52f8e.pdf",
+        "uploadedAt": "2026-04-20T06:22:24.882Z"
+      },
+      {
+        "id": "b3afc984-79ab-4265-a35f-678e49c8793c",
+        "fileName": "b3afc984-79ab-4265-a35f-678e49c8793c.pdf",
+        "originalName": "ae646ed4-b8d6-4a4b-ba16-206b49b52f8e.pdf",
+        "uploadedAt": "2026-04-20T06:25:06.798Z"
+      }
+    ],
+    "createdAt": "2026-04-20T06:16:10.332Z",
+    "updatedAt": "2026-04-20T06:25:06.810Z"
+  },
+  {
+    "id": "7b9bd4ad-5896-42bc-beaf-2dc11eeac4bf",
+    "year": 2026,
+    "month": 2,
+    "serviceSalesGross": 3697.36,
+    "productSalesGross": 321.3,
+    "rentGross": 1401.6,
+    "productCommissionGross": 88.36,
+    "vatRate": 25.5,
+    "rentVat": 0,
+    "accountantVat": 59.32,
+    "otherDeductibleVat": 0,
+    "payoutsReceived": 0,
+    "notes": "",
+    "attachments": "",
+    "files": [
+      {
+        "id": "198ad39a-a495-4ce5-925e-9a561c564897",
+        "fileName": "198ad39a-a495-4ce5-925e-9a561c564897.pdf",
+        "originalName": "TILITYSRAPORTTI joona maaliskuu2026.pdf",
+        "uploadedAt": "2026-04-20T06:26:57.345Z"
+      }
+    ],
+    "createdAt": "2026-04-20T06:26:57.250Z",
+    "updatedAt": "2026-04-20T06:26:57.355Z"
+  }
+]
