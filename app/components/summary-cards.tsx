@@ -42,7 +42,7 @@ export default function SummaryCards({ months }: { months: MonthEntry[] }) {
 
   const cards = [
     {
-      label: "Raportin myynnit yhteensä",
+      label: "Myynti yhteensä",
       value: formatCurrency(totals.totalReportedSalesGross),
     },
     {

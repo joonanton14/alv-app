@@ -169,3 +169,8 @@ export async function getFileFromDisk(
     return null
   }
 }
+
+export async function getMonthById(id: string): Promise<MonthEntry | null> {
+  const months = await getAllMonths()
+  return months.find((month) => month.id === id) ?? null
+}

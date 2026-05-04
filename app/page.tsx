@@ -3,6 +3,7 @@ import MonthTable from "./components/month-table"
 import SummaryCards from "./components/summary-cards"
 import { getAllMonths } from "./lib/storage"
 
+
 export default async function HomePage() {
   const months = await getAllMonths()
 
@@ -10,9 +11,14 @@ export default async function HomePage() {
     <main className="mx-auto max-w-6xl p-6">
       <div className="mb-8 flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-semibold">ALV-raportti</h1>
+          <h1 className="text-3xl font-semibold">Kirjanpito</h1>
         </div>
-
+        <Link
+          href="/vuosiyhteenveto/2026"
+          className="rounded-xl border px-4 py-2 text-sm font-medium"
+        >
+          Vuosiyhteenveto 2026
+        </Link>
         <Link
           href="/kuukausi/uusi"
           className="rounded-xl bg-black px-4 py-2 text-sm font-medium text-white"

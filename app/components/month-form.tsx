@@ -190,9 +190,9 @@ export default function MonthForm() {
         onSubmit={onSubmit}
         className="rounded-2xl border bg-white p-6 shadow-sm"
       >
-        <h2 className="text-xl font-semibold">Kuukausimerkintä</h2>
+        <h2 className="text-xl font-semibold">Kuukauden tapahtumat</h2>
         <p className="mt-2 text-sm text-gray-600">
-          Syötä raportin luvut tähän. Laskelmat näkyvät oikealla heti.
+          Syötä luvut alle.
         </p>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -206,7 +206,7 @@ export default function MonthForm() {
           </label>
 
           <label className="grid gap-2 text-sm">
-            <span>Kuukausi (1–12)</span>
+            <span>Kuukausi numerona</span>
             <input
               className="rounded-xl border px-3 py-2"
               value={form.month}
@@ -267,17 +267,7 @@ export default function MonthForm() {
           </label>
 
           <label className="grid gap-2 text-sm">
-            <span>Kirjanpitäjän ALV</span>
-            <input
-              {...euroInputProps()}
-              className="rounded-xl border px-3 py-2"
-              value={form.accountantVat}
-              onChange={(e) => updateField("accountantVat", e.target.value)}
-            />
-          </label>
-
-          <label className="grid gap-2 text-sm">
-            <span>Muu vähennettävä ALV</span>
+            <span>Vähennettävä ALV</span>
             <input
               {...euroInputProps()}
               className="rounded-xl border px-3 py-2"
@@ -287,30 +277,20 @@ export default function MonthForm() {
               }
             />
           </label>
-
-          <label className="grid gap-2 text-sm">
-            <span>Maksetut tilitykset</span>
-            <input
-              {...euroInputProps()}
-              className="rounded-xl border px-3 py-2"
-              value={form.payoutsReceived}
-              onChange={(e) => updateField("payoutsReceived", e.target.value)}
-            />
-          </label>
         </div>
 
         <div className="mt-4 grid gap-4">
           <label className="grid gap-2 text-sm">
-            <span>PDF-tiedostot</span>
+            <span>Liitteet</span>
             <input
               type="file"
               multiple
-              accept=".pdf"
+              accept=".pdf,.jpg,.jpeg,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg"
               onChange={(e) => setFiles(e.currentTarget.files)}
               className="rounded-xl border px-3 py-2"
             />
             <p className="text-xs text-gray-500">
-              Voit ladata useita PDF-tiedostoja kerralla
+            Voit ladata useita PDF-, JPG- ja DOCX-tiedostoja kerralla
             </p>
           </label>
 
@@ -339,7 +319,7 @@ export default function MonthForm() {
       </form>
 
       <aside className="rounded-2xl border bg-white p-6 shadow-sm">
-        <h3 className="text-lg font-semibold">Laskelma ALV</h3>
+        <h3 className="text-lg font-semibold">ALV laskelma</h3>
 
         <div className="mt-4 space-y-4 text-sm">
           <div className="border-b pb-3">
@@ -374,7 +354,7 @@ export default function MonthForm() {
           </div>
           <div className="rounded-lg border border-green-200 bg-green-50 p-3">
             <p className="text-sm font-medium text-green-900">
-              Omavero: Vero kotimaan myynneistä 25,5 %
+              Vero kotimaan myynneistä 25,5 %
             </p>
             <p className="mt-1 text-2xl font-bold text-green-700">
               {formatCurrency(calculation.totalSalesVat)}
@@ -383,7 +363,7 @@ export default function MonthForm() {
 
           <div className="rounded-lg border bg-white p-3">
             <p className="text-sm font-medium text-gray-700">
-              Omavero: Vähennettävä vero
+              Vähennettävä vero
             </p>
             <p className="mt-1 text-2xl font-bold">
               {formatCurrency(calculation.totalDeductibleVat)}
@@ -403,16 +383,9 @@ export default function MonthForm() {
               </div>
 
               <div className="flex justify-between">
-                <p className="text-gray-500">Kirjanpitäjän ALV</p>
+                <p className="text-gray-500">Vähennettävä ALV</p>
                 <p className="font-medium">
                   {formatCurrency(parsedValues.accountantVat)}
-                </p>
-              </div>
-
-              <div className="flex justify-between">
-                <p className="text-gray-500">Muu ALV</p>
-                <p className="font-medium">
-                  {formatCurrency(parsedValues.otherDeductibleVat)}
                 </p>
               </div>
             </div>
