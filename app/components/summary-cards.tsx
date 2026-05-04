@@ -23,7 +23,7 @@ export default function SummaryCards({ months }: { months: MonthEntry[] }) {
         payoutsReceived: month.payoutsReceived,
       })
 
-      acc.totalSalesGross += calc.totalSalesGross
+      acc.totalReportedSalesGross += calc.totalReportedSalesGross
       acc.taxableSalesGross += calc.taxableSalesGross
       acc.totalSalesVat += calc.totalSalesVat
       acc.totalDeductibleVat += calc.totalDeductibleVat
@@ -32,7 +32,7 @@ export default function SummaryCards({ months }: { months: MonthEntry[] }) {
       return acc
     },
     {
-      totalSalesGross: 0,
+      totalReportedSalesGross: 0,
       taxableSalesGross: 0,
       totalSalesVat: 0,
       totalDeductibleVat: 0,
@@ -42,8 +42,8 @@ export default function SummaryCards({ months }: { months: MonthEntry[] }) {
 
   const cards = [
     {
-      label: "Myynnit yhteensä",
-      value: formatCurrency(totals.totalSalesGross),
+      label: "Raportin myynnit yhteensä",
+      value: formatCurrency(totals.totalReportedSalesGross),
     },
     {
       label: "Verotettava myynti",

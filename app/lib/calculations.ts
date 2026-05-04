@@ -11,7 +11,7 @@ export type MonthInput = {
 }
 
 export type MonthCalculation = {
-  totalSalesGross: number
+  totalReportedSalesGross: number
   taxableSalesGross: number
   totalSalesVat: number
   taxableSalesNet: number
@@ -25,47 +25,34 @@ export const round2 = (value: number) => Math.round(value * 100) / 100
 export function calculateMonth(input: MonthInput): MonthCalculation {
   const vatMultiplier = input.vatRate / (100 + input.vatRate)
 
-  // Total sales shown (for reference)
-  const totalSalesGross = round2(
+  // Raportilla näkyvä myynti yhteensä, vain tiedoksi
+  const totalReportedSalesGross = round2(
     input.serviceSalesGross + input.productSalesGross
   )
 
-  // Calculate VAT collected from revenue
-  const serviceSalesVat = round2(input.serviceSalesGross * vatMultiplier)
-  const productCommissionVat = round2(input.productCommissionGross * vatMultiplier)
-  const totalCollectedVat = round2(serviceSalesVat + productCommissionVat)
+  // Tämä on Omaveroon menevän myynnin ALV:n pohja
+  const taxableSalesGross = round2(
+    input.serviceSalesGross + input.productCommissionGross
+  )
 
-  // Calculate VAT from rent (auto-calculated, then deducted)
-  const calculatedRentVat = round2(input.rentGross * vatMultiplier)
+  const totalSalesVat = round2(taxableSalesGross * vatMultiplier)
 
-  // Total deductible VAT (include calculated rent VAT, plus manually entered amounts)
+  const taxableSalesNet = round2(taxableSalesGross - totalSalesVat)
+
   const totalDeductibleVat = round2(
-    calculatedRentVat +
-      input.rentVat +
+    input.rentVat +
       input.accountantVat +
       input.otherDeductibleVat
   )
 
-  // VAT payable = collected VAT - all deductible VAT
-  const vatPayable = round2(
-    totalCollectedVat - totalDeductibleVat
-  )
-
-  // Taxable sales net (for reference/reporting)
-  const taxableSalesGross = round2(
-    input.serviceSalesGross +
-      input.productCommissionGross
-  )
-  const taxableSalesNet = round2(
-    taxableSalesGross - totalCollectedVat
-  )
+  const vatPayable = round2(totalSalesVat - totalDeductibleVat)
 
   const cashReceived = round2(input.payoutsReceived)
 
   return {
-    totalSalesGross,
+    totalReportedSalesGross,
     taxableSalesGross,
-    totalSalesVat: totalCollectedVat,
+    totalSalesVat,
     taxableSalesNet,
     totalDeductibleVat,
     vatPayable,
