@@ -1,7 +1,11 @@
 import Link from "next/link"
-import { getAllMonths } from "../../lib/storage"
+import {
+  getAllMonths,
+  getYelForYear,
+} from "../../lib/storage"
 import { calculateMonth } from "../../lib/calculations"
 import PrintButton from "../../components/print-button"
+import YelEditor from "../../components/yel-editor"
 
 function formatCurrency(value: number) {
   return new Intl.NumberFormat("fi-FI", {
@@ -24,7 +28,11 @@ export default async function YearSummaryPage({
   const { year } = await params
   const selectedYear = Number(year)
 
-  const allMonths = await getAllMonths()
+  const [allMonths, yelAmount] = await Promise.all([
+    getAllMonths(),
+    getYelForYear(selectedYear),
+  ])
+
   const months = allMonths
     .filter((month) => month.year === selectedYear)
     .sort((a, b) => a.month - b.month)
@@ -125,7 +133,9 @@ export default async function YearSummaryPage({
             </tr>
 
             <tr className="border-b">
-              <td className="py-2 font-semibold">Verotettava myynti sis. ALV</td>
+              <td className="py-2 font-semibold">
+                Verotettava myynti sis. ALV
+              </td>
               <td className="py-2 text-right font-semibold">
                 {formatCurrency(totals.taxableSalesGross)}
               </td>
@@ -155,6 +165,36 @@ export default async function YearSummaryPage({
             </tr>
           </tbody>
         </table>
+      </section>
+
+      <YelEditor
+        year={selectedYear}
+        initialAmount={yelAmount}
+      />
+
+      <section className="mt-8 border-t pt-4">
+        <h2 className="text-lg font-semibold">
+          Elinkeinotoiminnan vähennykset
+        </h2>
+
+        <table className="mt-3 w-full border-collapse text-sm">
+          <tbody>
+            <tr className="border-b">
+              <td className="py-2">
+                YEL-maksut {selectedYear}
+              </td>
+              <td className="py-2 text-right font-semibold">
+                {formatCurrency(yelAmount)}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p className="mt-2 text-xs text-gray-600">
+          YEL-maksut ilmoitetaan erillisenä vähennyksenä
+          elinkeinotoiminnan veroilmoituksessa. Ne eivät sisälly
+          ALV-laskelmaan.
+        </p>
       </section>
 
       <section className="mt-8">

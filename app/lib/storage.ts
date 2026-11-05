@@ -1,11 +1,12 @@
 import fs from "node:fs/promises"
 import path from "node:path"
 import { randomUUID } from "node:crypto"
-import { MonthEntry, FileAttachment } from "./data"
+import { MonthEntry, FileAttachment, YelEntry } from "./data"
 import { MonthEntryInput } from "./validations"
 
 const dataDirPath = path.join(process.cwd(), "data")
 const dataFilePath = path.join(dataDirPath, "months.json")
+const yelFilePath = path.join(dataDirPath, "yel.json")
 const uploadsDirPath = path.join(dataDirPath, "uploads")
 
 async function ensureDataFile() {
@@ -16,6 +17,12 @@ async function ensureDataFile() {
     await fs.access(dataFilePath)
   } catch {
     await fs.writeFile(dataFilePath, "[]", "utf8")
+  }
+
+  try {
+    await fs.access(yelFilePath)
+  } catch {
+    await fs.writeFile(yelFilePath, "[]", "utf8")
   }
 }
 
@@ -139,15 +146,14 @@ export async function deleteFileFromMonth(
     return false
   }
 
-  // Delete file from disk
   const filePath = path.join(uploadsDirPath, file.fileName)
+
   try {
     await fs.unlink(filePath)
   } catch {
     // File might already be deleted
   }
 
-  // Remove from month
   month.files = month.files?.filter((f) => f.id !== fileId) ?? []
   month.updatedAt = new Date().toISOString()
 
@@ -170,7 +176,66 @@ export async function getFileFromDisk(
   }
 }
 
-export async function getMonthById(id: string): Promise<MonthEntry | null> {
+export async function getMonthById(
+  id: string
+): Promise<MonthEntry | null> {
   const months = await getAllMonths()
   return months.find((month) => month.id === id) ?? null
+}
+
+// YEL-vuosikirjaukset
+
+export async function getAllYelEntries(): Promise<YelEntry[]> {
+  await ensureDataFile()
+
+  const raw = await fs.readFile(yelFilePath, "utf8")
+
+  if (!raw.trim()) {
+    return []
+  }
+
+  return JSON.parse(raw) as YelEntry[]
+}
+
+export async function getYelForYear(year: number): Promise<number> {
+  const entries = await getAllYelEntries()
+  const entry = entries.find((item) => item.year === year)
+
+  return entry?.amount ?? 0
+}
+
+export async function saveYelForYear(
+  year: number,
+  amount: number
+): Promise<YelEntry> {
+  await ensureDataFile()
+
+  if (!Number.isInteger(year) || year < 2000 || year > 2100) {
+    throw new Error("Virheellinen vuosi.")
+  }
+
+  if (!Number.isFinite(amount) || amount < 0) {
+    throw new Error("YEL-summan pitää olla nolla tai suurempi.")
+  }
+
+  const entries = await getAllYelEntries()
+  const now = new Date().toISOString()
+
+  const existingIndex = entries.findIndex((item) => item.year === year)
+
+  const entry: YelEntry = {
+    year,
+    amount: Math.round(amount * 100) / 100,
+    updatedAt: now,
+  }
+
+  if (existingIndex >= 0) {
+    entries[existingIndex] = entry
+  } else {
+    entries.push(entry)
+  }
+
+  await fs.writeFile(yelFilePath, JSON.stringify(entries, null, 2), "utf8")
+
+  return entry
 }

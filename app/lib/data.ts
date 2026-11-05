@@ -24,3 +24,9 @@ export type MonthEntry = {
   createdAt: string
   updatedAt: string
 }
+
+export type YelEntry = {
+  year: number
+  amount: number
+  updatedAt: string
+}
