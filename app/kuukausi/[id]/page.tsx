@@ -252,14 +252,14 @@ export default function MonthDetailsPage({ params }: PageProps) {
               ref={fileInputRef}
               type="file"
               multiple
-              accept=".pdf,.jpg,.jpeg,.docx,application/pdf,image/jpeg,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              accept=".pdf,.jpg,.jpeg,.png,.docx,application/pdf,image/jpeg,image/png,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
               onChange={handleFileUpload}
               disabled={uploading}
               className="block w-full rounded-xl border px-3 py-2 text-sm"
             />
 
             <p className="mt-2 text-xs text-gray-500">
-              Sallitut tiedostot: PDF, JPG, JPEG ja DOCX
+              Sallitut tiedostot: PDF, JPG, JPEG, PNG ja DOCX
             </p>
           </label>
 

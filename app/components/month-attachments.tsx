@@ -10,7 +10,11 @@ type Attachment = {
 function getFileType(filename: string) {
   const lower = filename.toLowerCase()
 
-  if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) return "image"
+  if (
+    lower.endsWith(".jpg") ||
+    lower.endsWith(".jpeg") ||
+    lower.endsWith(".png")
+  ) return "image"
   if (lower.endsWith(".pdf")) return "pdf"
   if (lower.endsWith(".docx")) return "docx"
 

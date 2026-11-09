@@ -9,6 +9,7 @@ function getContentType(filename: string) {
 
   if (ext === ".pdf") return "application/pdf"
   if (ext === ".jpg" || ext === ".jpeg") return "image/jpeg"
+  if (ext === ".png") return "image/png"
   if (ext === ".docx") {
     return "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
   }

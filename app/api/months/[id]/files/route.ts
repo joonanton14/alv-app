@@ -8,10 +8,11 @@ const allowedMimeTypes = [
   "application/pdf",
   "image/jpeg",
   "image/jpg",
+  "image/png",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ]
 
-const allowedExtensions = [".pdf", ".jpg", ".jpeg", ".docx"]
+const allowedExtensions = [".pdf", ".jpg", ".jpeg", ".png", ".docx"]
 
 function sanitizeFilename(filename: string) {
   return filename
@@ -74,7 +75,7 @@ export async function POST(
 
     if (!isAllowedMime && !isAllowedExtension) {
       return NextResponse.json(
-        { error: "Sallitut tiedostotyypit ovat PDF, JPG, JPEG ja DOCX" },
+        { error: "Sallitut tiedostotyypit ovat PDF, JPG, JPEG, PNG ja DOCX" },
         { status: 400 }
       )
     }

@@ -285,12 +285,12 @@ export default function MonthForm() {
             <input
               type="file"
               multiple
-              accept=".pdf,.jpg,.jpeg,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg"
+              accept=".pdf,.jpg,.jpeg,.png,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png"
               onChange={(e) => setFiles(e.currentTarget.files)}
               className="rounded-xl border px-3 py-2"
             />
             <p className="text-xs text-gray-500">
-            Voit ladata useita PDF-, JPG- ja DOCX-tiedostoja kerralla
+            Voit ladata useita PDF-, JPG-, PNG- ja DOCX-tiedostoja kerralla
             </p>
           </label>
 
